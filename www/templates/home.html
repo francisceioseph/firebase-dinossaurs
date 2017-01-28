@@ -1,0 +1,22 @@
+<ion-view>
+  <ion-header-bar class="bar-stable">
+    <h1 class="title">Dinossaurs</h1>
+  </ion-header-bar>
+
+  <ion-content>
+    <ion-list>
+      <ion-item collection-repeat="dinossaur in homeCtrl.dinossaurs" item-width="100%">
+        <strong>{{dinossaur.nome}}</strong><br>
+        <label>Altura: {{dinossaur.altura}}m</label><br>
+        <label>Comprimento: {{dinossaur.comprimento}}m</label>        
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll
+      ng-if="homeCtrl.dinossaurs.length == 0"
+      spinner="android"
+      on-infinite="homeCtrl.loadAllDinossaursWithAngularFire()"
+      distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>
