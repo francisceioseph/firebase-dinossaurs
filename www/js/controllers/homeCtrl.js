@@ -1,7 +1,7 @@
 (function(){
   "use strict";
   
-  angular.module('controllers.home', ['ui.router', 'services.dinossaurs'])
+  angular.module('controllers.home', ['ui.router', 'services.dinossaurs', 'services.new_dino'])
     .config(HomeRouteConfiguration)
     .controller('homeController', HomeController);
 
@@ -20,8 +20,8 @@
     $urlRouterProvider.otherwise('/home');
   };
 
-  HomeController.$inject = ['$scope', 'dinossaursService'];
-  function HomeController($scope, dinossaursService) {
+  HomeController.$inject = ['$scope', 'dinossaursService', 'newDinoModal'];
+  function HomeController($scope, dinossaursService, newDinoModal) {
     let homeCtrl = this;
 
     homeCtrl.dinossaurs = [];
@@ -41,6 +41,11 @@
 
     homeCtrl.loadAllDinossaursWithAngularFire = function(){
       homeCtrl.dinossaurs = dinossaursService.findAllDinossaursWithAngularFire();
+    };
+
+    homeCtrl.openNewDinoModal = function() {
+      newDinoModal.showModal()
+        .then(modal => modal.show());
     };
   };
 })();

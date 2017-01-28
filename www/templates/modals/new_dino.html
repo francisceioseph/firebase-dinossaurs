@@ -1,0 +1,28 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <button class="button button-clear button-positive" ng-click="closeModal()">Cancel</button>    
+    <h1 class="title">New Dino</h1>
+    <label for="submit-form" type="submit" class="button button-clear button-positive">Done</label>
+  </ion-header-bar>
+
+  <ion-content>
+    <form name="new_dino" ng-submit="saveDinossaur()">
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Name</span>
+        <input type="text" name="name" ng-model="dinossaur.nome" placeholder="Dinossaur Name" autofocus required>
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Height</span>
+        <input type="number" name="height" ng-model="dinossaur.altura" placeholder="Dinossaur Height" required>
+      </label>
+
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Length</span>
+        <input type="number" name="length" ng-model="dinossaur.comprimento" placeholder="Dinossaur Length" required>
+      </label>
+
+      <input hidden type="submit" name="submit-form" id="submit-form" />
+    </form>
+  </ion-content>
+</ion-modal-view>

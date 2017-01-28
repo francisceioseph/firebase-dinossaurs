@@ -19,7 +19,8 @@
       createDinossaurWithName:  _createDinossaurWithName,
       updateDinossaurWithName:  _updateDinossaurWithName,
       deleteDinossaurWithName:  _deleteDinossaurWithName,
-      findAllDinossaursWithAngularFire: _findAllDinossaursWithAngularFire
+      findAllDinossaursWithAngularFire: _findAllDinossaursWithAngularFire,
+      createDinossaurWithAngularFire: _createDinossaurWithAngularFire
     };
 
     return service;
@@ -35,6 +36,13 @@
       let dinossaurRef  = firebaseService.getReferenceWithPath(dinossaurPath);
 
       return $firebaseArray(dinossaurRef);
+    }
+
+    function _createDinossaurWithAngularFire(newDinossaur){
+      let dinossaurPath = 'dinossauros';
+      let dinossaurRef  = firebaseService.getReferenceWithPath(dinossaurPath);
+
+      return $firebaseArray(dinossaurRef).$add(newDinossaur);
     }
 
     /**
