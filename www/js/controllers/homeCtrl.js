@@ -20,8 +20,8 @@
     $urlRouterProvider.otherwise('/home');
   };
 
-  HomeController.$inject = ['$scope', '$ionicListDelegate', 'dinossaursService', 'newDinoModal', 'editDinoModal'];
-  function HomeController($scope, $ionicListDelegate, dinossaursService, newDinoModal, editDinoModal) {
+  HomeController.$inject = ['$scope', '$ionicListDelegate', '$ionicPopup', 'dinossaursService', 'newDinoModal', 'editDinoModal'];
+  function HomeController($scope, $ionicListDelegate, $ionicPopup, dinossaursService, newDinoModal, editDinoModal) {
     let homeCtrl = this;
 
     homeCtrl.dinossaurs = [];
@@ -61,7 +61,14 @@
 
     homeCtrl.removeDinossaur = function(dinossaur) {
       $ionicListDelegate.closeOptionButtons()
-      homeCtrl.dinossaurs.$remove(dinossaur);
+      
+      $ionicPopup.confirm({
+        title: 'Alerta!',
+        template: 'Tem certeza que desesa exluir esse dinossauro?'
+      }).then(response => {
+        if (response)
+          homeCtrl.dinossaurs.$remove(dinossaur);      
+      });
     };
   };
 })();
