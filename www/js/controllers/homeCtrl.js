@@ -1,7 +1,7 @@
 (function(){
   "use strict";
   
-  angular.module('controllers.home', ['ui.router', 'services.dinossaurs', 'services.new_dino'])
+  angular.module('controllers.home', ['ui.router', 'services.dinossaurs', 'services.new_dino', 'services.edit_dino'])
     .config(HomeRouteConfiguration)
     .controller('homeController', HomeController);
 
@@ -20,8 +20,8 @@
     $urlRouterProvider.otherwise('/home');
   };
 
-  HomeController.$inject = ['$scope', 'dinossaursService', 'newDinoModal'];
-  function HomeController($scope, dinossaursService, newDinoModal) {
+  HomeController.$inject = ['$scope', '$ionicListDelegate', 'dinossaursService', 'newDinoModal', 'editDinoModal'];
+  function HomeController($scope, $ionicListDelegate, dinossaursService, newDinoModal, editDinoModal) {
     let homeCtrl = this;
 
     homeCtrl.dinossaurs = [];
@@ -45,7 +45,23 @@
 
     homeCtrl.openNewDinoModal = function() {
       newDinoModal.showModal()
-        .then(modal => modal.show());
+        .then(modal => {
+          modal.show(); 
+          $ionicListDelegate.closeOptionButtons();
+        });
+    };
+
+    homeCtrl.openEditDinoModal = function(dinossaur) {
+      editDinoModal.showModal(dinossaur)
+        .then(modal => {
+          modal.show(); 
+          $ionicListDelegate.closeOptionButtons();
+        });
+    };
+
+    homeCtrl.removeDinossaur = function(dinossaur) {
+      $ionicListDelegate.closeOptionButtons()
+      homeCtrl.dinossaurs.$remove(dinossaur);
     };
   };
 })();

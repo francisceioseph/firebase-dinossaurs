@@ -20,7 +20,8 @@
       updateDinossaurWithName:  _updateDinossaurWithName,
       deleteDinossaurWithName:  _deleteDinossaurWithName,
       findAllDinossaursWithAngularFire: _findAllDinossaursWithAngularFire,
-      createDinossaurWithAngularFire: _createDinossaurWithAngularFire
+      createDinossaurWithAngularFire: _createDinossaurWithAngularFire,
+      updateDinossaur: _updateDinossaur
     };
 
     return service;
@@ -38,11 +39,26 @@
       return $firebaseArray(dinossaurRef);
     }
 
+    /**
+     * Cria um novo dinossauro dentro do firebase utilizando PushIDs.
+     * 
+     */
     function _createDinossaurWithAngularFire(newDinossaur){
       let dinossaurPath = 'dinossauros';
       let dinossaurRef  = firebaseService.getReferenceWithPath(dinossaurPath);
 
       return $firebaseArray(dinossaurRef).$add(newDinossaur);
+    }
+
+    function _updateDinossaur(updatedDinossaur) {
+      let dinossaurPath = `dinossauros/${updatedDinossaur.$id}`;
+      let dinossaurRef  = firebaseService.getReferenceWithPath(dinossaurPath);
+
+      let dinossaur = angular.copy(updatedDinossaur);
+      delete dinossaur.$id;
+      delete dinossaur.$priority;
+
+      return dinossaurRef.update(dinossaur).catch(error => console.log(error));
     }
 
     /**

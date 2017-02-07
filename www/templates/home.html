@@ -7,9 +7,16 @@
   <ion-content>
     <ion-list>
       <ion-item collection-repeat="dinossaur in homeCtrl.dinossaurs | orderBy: 'nome'" item-width="100%">
-        <strong>{{dinossaur.nome}}</strong><br>
-        <label>Altura: {{dinossaur.altura}}m</label><br>
-        <label>Comprimento: {{dinossaur.comprimento}}m</label>        
+        <ion-option-button class="button-assertive" ng-click="homeCtrl.removeDinossaur(dinossaur)">
+          Remover
+        </ion-option-button>
+        <ion-option-button class="button-calm" ng-click="homeCtrl.openEditDinoModal(dinossaur)">
+          Editar
+        </ion-option-button>
+          
+        <h2>{{dinossaur.nome}}</h2>
+        <p>Altura: {{dinossaur.altura}}m</p>
+        <p>Comprimento: {{dinossaur.comprimento}}m</p>        
       </ion-item>
     </ion-list>
 
